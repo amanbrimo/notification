@@ -1,0 +1,95 @@
+<div id="notify-me-wrapper" style="display: none;">
+  <div class="notify-header" style="margin-bottom: 10px;">
+    <h3 style="margin: 0; font-size: 16px;">Out of Stock</h3>
+    <p style="margin: 5px 0 0; font-size: 14px; color: #666;">We'll notify you when it's back.</p>
+  </div>
+  
+  {% if customer %}
+    <form id="notify-me-form">
+      <input type="hidden" name="product_id" value="{{ product.id }}">
+      <input type="hidden" name="client_id" value="{{ block.settings.client_id }}">
+      <input type="hidden" id="notify-variant-id" name="variant_id" value="{{ product.selected_or_first_available_variant.id }}">
+      
+      <input type="hidden" name="email" value="{{ customer.email }}">
+      <input type="hidden" name="name" value="{{ customer.name }}">
+  
+      <div class="notify-input-group">
+        <input 
+          type="tel" 
+          name="phone" 
+          placeholder="Enter 10 Digit Number" 
+          class="notify-input" 
+          required
+          maxlength="10"
+          minlength="10"
+          pattern="[0-9]{10}"
+        >
+        <button type="submit" class="notify-btn">Notify Me</button>
+      </div>
+    </form>
+
+  {% else %}
+    <div class="notify-login-prompt">
+      <a href="{{ routes.account_login_url }}?return_to={{ request.fullpath | url_encode }}" 
+         class="notify-btn" 
+         style="text-decoration: none; display: block; text-align: center; width: 100%; border-radius: 4px;">
+        Login to be Notified
+      </a>
+    </div>
+  {% endif %}
+  
+  <p id="notify-message" style="display:none; margin-top: 10px; font-size: 14px;"></p>
+</div>
+
+<script>
+  window._notifyVariants = [
+    {% for variant in product.variants %}
+      { id: {{ variant.id }}, available: {{ variant.available | json }} },
+    {% endfor %}
+  ];
+  window._initialVariantId = {{ product.selected_or_first_available_variant.id }};
+</script>
+
+<script src="{{ 'notify-me.js' | asset_url }}" defer></script>
+
+<style>
+  #notify-me-wrapper { margin: 20px 0; }
+  
+  .notify-input-group { display: flex; width: 100%; }
+  
+  .notify-input {
+    flex-grow: 1; padding: 12px 15px; border: 1px solid #ccc;
+    border-right: none; border-radius: 4px 0 0 4px; outline: none;
+  }
+  
+  .notify-btn {
+    padding: 12px 25px; background-color: black; color: white;
+    border: 1px solid black; border-radius: 0 4px 4px 0;
+    cursor: pointer; white-space: nowrap; font-weight: 600;
+  }
+  .notify-btn:hover { background-color: #333; }
+
+  /* Ensure buy buttons stay hidden when wrapper is shown */
+  .hide-buy-buttons .product-form,
+  .hide-buy-buttons .product-form__buttons, 
+  .hide-buy-buttons .shopify-payment-button,
+  .hide-buy-buttons [name="add"],
+  .hide-buy-buttons form[action*="/cart/add"] {
+    display: none !important;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Notify Me (WhatsApp)",
+  "target": "section",
+  "settings": [
+    { 
+      "type": "text", 
+      "id": "client_id", 
+      "label": "Client Database ID",
+      "info": "Required: Enter your store's ID from the Django Admin."
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,36 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "5ffc10965324bd88f553b7279ea1151c"
+name = "notification"
+application_url = "https://gauravhapi.farziengineer.co"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = false
+
+[webhooks]
+api_version = "2026-04"
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/scopes_update" ]
+  uri = "https://notify-app-fix.free.beeceptor.com/security"
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled" ]
+  uri = "https://notify-app-fix.free.beeceptor.com/security"
+
+  [[webhooks.subscriptions]]
+  compliance_topics = ["customers/data_request", "customers/redact", "shop/redact"]
+  uri = "https://notify-app-fix.free.beeceptor.com/security"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_inventory,write_products,read_products,read_product_listings"
+
+[auth]
+redirect_urls = [ "https://gauravhapi.farziengineer.co/api/auth" ]
+#  app_proxyfor backend
+[app_proxy]
+url = "https://gauravhapi.farziengineer.co/graphql"
+subpath = "notify"
+prefix = "apps"
