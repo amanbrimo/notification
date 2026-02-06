@@ -2,7 +2,7 @@
 
 client_id = "5ffc10965324bd88f553b7279ea1151c"
 name = "notification"
-application_url = "https://gauravhapi.farziengineer.co"
+application_url = "https://farzionehapi.farziengineer.co"
 embedded = true
 
 [build]
@@ -13,24 +13,24 @@ api_version = "2026-04"
 
   [[webhooks.subscriptions]]
   topics = [ "app/scopes_update" ]
-  uri = "https://gauravhapi.farziengineer.co/webhooks/shopify/"
+  uri = "https://farzionehapi.farziengineer.co/webhooks/shopify/"
 
   [[webhooks.subscriptions]]
   topics = [ "app/uninstalled" ]
-  uri = "https://gauravhapi.farziengineer.co/webhooks/shopify/"
+  uri = "https://farzionehapi.farziengineer.co/webhooks/shopify/"
 
   [[webhooks.subscriptions]]
   compliance_topics = ["customers/data_request", "customers/redact", "shop/redact"]
-  uri = "https://gauravhapi.farziengineer.co/webhooks/shopify/"
+  uri = "https://farzionehapi.farziengineer.co/webhooks/shopify/"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
 scopes = "read_inventory,write_products,read_products,read_product_listings"
 
 [auth]
-redirect_urls = [ "https://gauravhapi.farziengineer.co/api/auth" ]
+redirect_urls = [ "https://farzionehapi.farziengineer.co/api/auth" ]
 #  app_proxyfor backend
 [app_proxy]
-url = "https://gauravhapi.farziengineer.co/graphql"
+url = "https://farzionehapi.farziengineer.co/graphql"
 subpath = "notify"
 prefix = "apps"

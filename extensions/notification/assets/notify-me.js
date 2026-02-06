@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.disabled = true;
 
         const res = await fetch(
-          `https://gauravhapi.farziengineer.co/graphql/?source=website`,
+          `https://farzionehapi.farziengineer.co/graphql/?source=website`,
           {
             method: "POST",
             headers: {
