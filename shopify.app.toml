@@ -3,7 +3,7 @@
 client_id = "5ffc10965324bd88f553b7279ea1151c"
 name = "notification"
 application_url = "https://farzionehapi.farziengineer.co"
-embedded = true
+embedded = false
 
 [build]
 automatically_update_urls_on_dev = false
